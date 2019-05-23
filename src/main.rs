@@ -1,8 +1,8 @@
-#[derive(Debug)]
+#[derive(Debug, Default)]
 struct Rectangle {
     width: u32,
     height: u32,
-    name: String,
+    name: Option<String>,
 }
 
 impl Rectangle {
@@ -11,7 +11,7 @@ impl Rectangle {
     }
 
     fn rename(&mut self, name: &str) {
-        self.name = name.to_string();
+        self.name = Some(name.to_string());
     }
 
     fn can_hold(&self, other: &Rectangle) -> bool {
@@ -22,7 +22,7 @@ impl Rectangle {
         Rectangle {
             width: size,
             height: size,
-            name: String::from(""),
+            ..Default::default()
         }
     }
 }
@@ -43,17 +43,19 @@ fn main() {
     let rect1 = Rectangle {
         width: 30,
         height: 50,
-        name: String::from("a"),
+        ..Default::default()
     };
+
     let rect2 = Rectangle {
         width: 10,
         height: 40,
-        name: String::from("b"),
+        ..Default::default()
     };
+
     let rect3 = Rectangle {
         width: 60,
         height: 45,
-        name: String::from("c"),
+        ..Default::default()
     };
 
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
