@@ -17,20 +17,28 @@ impl Rectangle {
     fn can_hold(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height
     }
+
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+            name: String::from(""),
+        }
+    }
 }
 
 fn main() {
-    let mut rect = Rectangle {
-        width: 30,
-        height: 50,
-        name: String::from("foo"),
-    };
+    let mut square = Rectangle::square(50);
 
-    println!("The area of {:#?} is {} square pixels.", rect, rect.area());
+    println!(
+        "The area of {:#?} is {} square pixels.",
+        square,
+        square.area()
+    );
 
-    rect.rename("bar");
+    square.rename("bar");
 
-    println!("{:#?}", rect);
+    println!("{:#?}", square);
 
     let rect1 = Rectangle {
         width: 30,
