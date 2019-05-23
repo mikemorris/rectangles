@@ -5,6 +5,12 @@ struct Rectangle {
     name: String,
 }
 
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+
 fn main() {
     let rect = Rectangle {
         width: 30,
@@ -12,9 +18,5 @@ fn main() {
         name: String::from("foo"),
     };
 
-    println!("The area of {:#?} is {} square pixels.", rect, area(&rect));
-}
-
-fn area(rect: &Rectangle) -> u32 {
-    rect.width * rect.height
+    println!("The area of {:#?} is {} square pixels.", rect, rect.area());
 }
