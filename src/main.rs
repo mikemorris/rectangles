@@ -1,62 +1,48 @@
-#[derive(Debug, Default)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-    name: Option<String>,
-}
-
-impl Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
+mod shape {
+    #[derive(Debug, Default)]
+    pub struct Rectangle {
+        width: u32,
+        height: u32,
+        name: Option<String>,
     }
 
-    fn rename(&mut self, name: &str) {
-        self.name = Some(name.to_string());
-    }
+    impl Rectangle {
+        pub fn new(width: u32, height: u32) -> Rectangle {
+            Rectangle {
+                width,
+                height,
+                ..Default::default()
+            }
+        }
 
-    fn can_hold(&self, other: &Rectangle) -> bool {
-        self.width > other.width && self.height > other.height
-    }
+        pub fn area(&self) -> u32 {
+            self.width * self.height
+        }
 
-    fn square(size: u32) -> Rectangle {
-        Rectangle {
-            width: size,
-            height: size,
-            ..Default::default()
+        pub fn set_name(&mut self, name: &str) {
+            self.name = Some(name.to_string());
+        }
+
+        pub fn can_hold(&self, other: &Rectangle) -> bool {
+            self.width > other.width && self.height > other.height
         }
     }
 }
 
 fn main() {
-    let mut square = Rectangle::square(50);
+    use shape::Rectangle;
 
-    println!(
-        "The area of {:#?} is {} square pixels.",
-        square,
-        square.area()
-    );
+    let mut rect = Rectangle::new(30, 50);
 
-    square.rename("bar");
+    println!("The area of {:#?} is {} pixels.", rect, rect.area());
 
-    println!("{:#?}", square);
+    rect.set_name("bar");
 
-    let rect1 = Rectangle {
-        width: 30,
-        height: 50,
-        ..Default::default()
-    };
+    println!("{:#?}", rect);
 
-    let rect2 = Rectangle {
-        width: 10,
-        height: 40,
-        ..Default::default()
-    };
-
-    let rect3 = Rectangle {
-        width: 60,
-        height: 45,
-        ..Default::default()
-    };
+    let rect1 = Rectangle::new(30, 50);
+    let rect2 = Rectangle::new(10, 40);
+    let rect3 = Rectangle::new(60, 45);
 
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
